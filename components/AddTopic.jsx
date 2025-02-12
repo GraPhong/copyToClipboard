@@ -1,11 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
-export default function AddTopic() {
+export default function AddTopic({ setTopics }) {
     const [topic, setTopic] = useState("");
-    const router = useRouter();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -16,13 +14,15 @@ export default function AddTopic() {
         }
 
         const storedTopics = JSON.parse(localStorage.getItem("topics")) || [];
-
         const newTopic = { id: Date.now().toString(), topic };
 
+        // Add the new topic to the list and update localStorage
+        const updatedTopics = [...storedTopics, newTopic];
+        localStorage.setItem("topics", JSON.stringify(updatedTopics));
 
-        localStorage.setItem("topics", JSON.stringify([...storedTopics, newTopic]));
-
-        window.location.reload();
+        // Update the state without reloading the page
+        setTopics(updatedTopics);
+        setTopic("");  // Reset the input field
     };
 
     return (

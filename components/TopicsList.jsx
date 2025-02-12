@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react";
 import RemoveBtn from "./RemoveBtn";
 import ClipboardBtn from "./ClipboardBtn";
-import { HiPencilAlt } from "react-icons/hi";
-import EditTopicForm from "./EditTopicForm";
+import EditTopicBtn from "./EditTopicBtn";
+import AddTopic from "./AddTopic"; 
 
 export default function TopicsList() {
     const [topics, setTopics] = useState([]);
-    const [editTopicId, setEditTopicId] = useState(null); // Track the topic being edited
+    const [editTopic, setEditTopic] = useState([]); 
 
     useEffect(() => {
         const storedTopics = JSON.parse(localStorage.getItem("topics")) || [];
@@ -17,29 +17,24 @@ export default function TopicsList() {
 
     return (
         <>
+            <AddTopic setTopics={setTopics} />  
+
             {topics.map((t) => (
                 <div
                     key={t.id}
-                    className="rounded-lg p-4 border border-slate-300 my-4 flex justify-between gap-5 items-start"
+                    className="rounded-lg p-4 border border-slate-300 my-4 flex justify-between gap-5 items-start bg-gray-800"
                 >
                     <div>
-                        <h2 className="font-bold text-2xl">{t.topic}</h2>
+                        <h2 className="font-bold text-2xl text-white">{t.topic}</h2>
                     </div>
 
                     <div className="flex gap-2">
                         <ClipboardBtn id={t.id} />
-                        <button onClick={() => setEditTopicId(t.id)}>
-                            <HiPencilAlt size={24} />
-                        </button>
+                        <EditTopicBtn id={t.id} editTopic={setEditTopic} />
                         <RemoveBtn id={t.id} setTopics={setTopics} />
                     </div>
                 </div>
             ))}
-
-            {/* Show Edit Modal if an editTopicId is selected */}
-            {editTopicId && (
-                <EditTopicForm id={editTopicId} closeModal={() => setEditTopicId(null)} />
-            )}
         </>
     );
 }

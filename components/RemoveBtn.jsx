@@ -19,11 +19,11 @@ export default function RemoveBtn({ id, setTopics }) {
             <button onClick={() => setShowConfirm(true)} className="text-red-400">
                 <HiTrash size={24} />
             </button>
-            
+
             {showConfirm && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg w-[400px] text-center">
-                        <h2 className="text-lg font-bold mb-4">Are you sure you want to delete this topic?</h2>
+                        <h2 className="text-lg font-bold mb-4">Are you sure?</h2>
                         <div className="flex justify-center gap-4">
                             <button
                                 onClick={() => setShowConfirm(false)}

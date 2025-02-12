@@ -20,8 +20,8 @@ export default function ClipboardBtn({ id }) {
     };
 
     return (
-        <button onClick={copyToClipboard} className="text-blue-500 flex items-center gap-2">
-            <HiDuplicate size={24} />
+        <button onClick={copyToClipboard} className="text-white flex items-center gap-2">
+            <HiDuplicate size={24} color="white"/>
             {copied ? "Copied!" : "Copy"}
         </button>
     );
